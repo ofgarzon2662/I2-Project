@@ -1,0 +1,380 @@
+###################################
+# RF003
+###################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rf003
+  labels:
+    app: rf003
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rf003
+  template:
+    metadata:
+      labels:
+        app: rf003
+    spec:
+      containers:
+        - name: rf003
+          image: us-central1-docker.pkg.dev/miso-ciclo5/uniandes-miso/rf003-app:1
+          ports:
+            - containerPort: 3000
+          env:
+            - name: "DB_NAME"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_name
+            - name: "DB_HOST"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_host
+            - name: "DB_PORT"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_port
+            - name: "DB_USER"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_user
+            - name: "DB_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_password
+            - name: "USERS_PATH"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: users_path
+            - name: "POSTS_PATH"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: posts_path
+            - name: "ROUTES_PATH"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: routes_path
+          imagePullPolicy: Always
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: rf003-config
+spec:
+  healthCheck:
+    checkIntervalSec: 30
+    port: 3000
+    type: HTTP
+    requestPath: /rf003/posts/ping
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-rf003
+  annotations:
+    cloud.google.com/backend-config: '{"default": "rf003-config"}'
+spec:
+  type: NodePort
+  selector:
+    app: rf003
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+      nodePort: 31004
+---
+###################################
+# RF004
+###################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rf004
+  labels:
+    app: rf004
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rf004
+  template:
+    metadata:
+      labels:
+        app: rf004
+    spec:
+      containers:
+        - name: rf004
+          image: us-central1-docker.pkg.dev/miso-ciclo5/uniandes-miso/rf004-app:1
+          ports:
+            - containerPort: 3000
+          env:
+            - name: "DB_NAME"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_name
+            - name: "DB_HOST"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_host
+            - name: "DB_PORT"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_port
+            - name: "DB_USER"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_user
+            - name: "DB_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_password
+            - name: "USERS_PATH"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: users_path
+            - name: "POSTS_PATH"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: posts_path
+            - name: "OFFERS_PATH"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: offers_path
+            - name: "ROUTES_PATH"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: routes_path
+            - name: "SCORE_PATH"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: scores_path
+          imagePullPolicy: Always
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: rf004-config
+spec:
+  healthCheck:
+    checkIntervalSec: 30
+    port: 3000
+    type: HTTP
+    requestPath: /rf004/posts/ping
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-rf004
+  annotations:
+    cloud.google.com/backend-config: '{"default": "rf004-config"}'
+spec:
+  type: NodePort
+  selector:
+    app: rf004
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+      nodePort: 31005
+---
+###################################
+# RF005
+###################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rf005
+  labels:
+    app: rf005
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rf005
+  template:
+    metadata:
+      labels:
+        app: rf005
+    spec:
+      containers:
+        - name: rf005
+          image: us-central1-docker.pkg.dev/miso-ciclo5/uniandes-miso/rf005-app:1
+          ports:
+            - containerPort: 3000
+          env:
+            - name: "DB_NAME"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_name
+            - name: "DB_HOST"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_host
+            - name: "DB_PORT"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_port
+            - name: "DB_USER"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_user
+            - name: "DB_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_password
+            - name: "USERS_PATH"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: users_path
+            - name: "POSTS_PATH"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: posts_path
+            - name: "ROUTES_PATH"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: routes_path
+            - name: "OFFERS_PATH"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: offers_path
+            - name: "SCORE_PATH"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: scores_path
+          imagePullPolicy: Always
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: rf005-config
+spec:
+  healthCheck:
+    checkIntervalSec: 30
+    port: 3000
+    type: HTTP
+    requestPath: /rf005/posts/ping
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-rf005
+  annotations:
+    cloud.google.com/backend-config: '{"default": "rf005-config"}'
+spec:
+  type: NodePort
+  selector:
+    app: rf005
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+      nodePort: 31006
+---
+###################################
+# Scores
+###################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scores
+  labels:
+    app: scores
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scores
+  template:
+    metadata:
+      labels:
+        app: scores
+    spec:
+      containers:
+        - name: scores
+          image: us-central1-docker.pkg.dev/miso-ciclo5/uniandes-miso/scores-app:1
+          ports:
+            - containerPort: 3000
+          env:
+            - name: "DB_NAME"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_name
+            - name: "DB_HOST"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_host
+            - name: "DB_PORT"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_port
+            - name: "DB_USER"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_user
+            - name: "DB_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: db_password
+          imagePullPolicy: Always
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: scores-config
+spec:
+  healthCheck:
+    checkIntervalSec: 30
+    port: 3000
+    type: HTTP
+    requestPath: /scores/ping
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-scores
+  annotations:
+    cloud.google.com/backend-config: '{"default": "scores-config"}'
+spec:
+  type: NodePort
+  selector:
+    app: scores
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+      nodePort: 31007

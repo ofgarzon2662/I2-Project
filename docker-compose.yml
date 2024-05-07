@@ -1,0 +1,197 @@
+version: '3'
+services:
+  users:
+    build: users
+    ports:
+      - "3000:3000"
+    environment:
+      DB_NAME: monitor_users
+      DB_HOST: users_db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    networks:
+      - user_net
+      - app_net
+    depends_on:
+      users_db:
+        condition: service_healthy
+  users_db:
+    image: postgres
+    environment:
+      POSTGRES_DB: monitor_users
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 2s
+      timeout: 5s
+      retries: 5
+    networks:
+      - user_net  
+  offers:
+    build: offers
+    ports:
+      - "3003:3003"
+    environment:
+      DB_NAME: monitor_offers
+      DB_HOST: offers_db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      USERS_PATH: http://users:3000
+    networks:
+      - offer_net
+      - app_net
+    depends_on:
+      offers_db:
+        condition: service_healthy
+  offers_db:
+    image: postgres
+    environment:
+      POSTGRES_DB: monitor_offers
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 2s
+      timeout: 5s
+      retries: 5
+    networks:
+      - offer_net
+  routes:
+    build: routes
+    ports:
+      - "3002:3002"
+    environment:
+      DB_NAME: monitor_routes
+      DB_HOST: routes_db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      USERS_PATH: http://users:3000
+    networks:
+      - route_net
+      - app_net
+    depends_on:
+      routes_db:
+        condition: service_healthy
+  routes_db:
+    image: postgres
+    environment:
+      POSTGRES_DB: monitor_routes
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 2s
+      timeout: 5s
+      retries: 5
+    networks:
+      - route_net 
+  posts:
+    build: posts
+    ports:
+      - "3001:3001"
+    environment:
+      DB_NAME: monitor_posts
+      DB_HOST: posts_db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      USERS_PATH: http://users:3000
+    networks:
+      - post_net
+      - app_net
+    depends_on:
+      posts_db:
+        condition: service_healthy
+  posts_db:
+    image: postgres
+    environment:
+      POSTGRES_DB: monitor_posts
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 2s
+      timeout: 5s
+      retries: 5
+    networks:
+      - post_net
+  scores:
+    build: scores
+    ports:
+      - "3007:3000"
+    environment:
+      DB_NAME: monitor_scores
+      DB_HOST: scores_db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    networks:
+      - score_net
+      - app_net
+    depends_on:
+      scores_db:
+        condition: service_healthy
+  scores_db:
+    image: postgres
+    environment:
+      POSTGRES_DB: monitor_scores
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 2s
+      timeout: 5s
+      retries: 5
+    networks:
+      - score_net          
+  rf003:
+    build: rf003
+    ports:
+      - "3004:3000"
+    environment:
+      ROUTES_PATH: http://routes:3002
+      POSTS_PATH: http://posts:3001
+      USERS_PATH: http://users:3000
+    networks:
+      - app_net
+  rf004:
+    build: rf004
+    ports:
+      - "3005:3000"
+    environment:
+      OFFERS_PATH: http://offers:3003
+      POSTS_PATH: http://posts:3001
+      USERS_PATH: http://users:3000
+      ROUTES_PATH: http://routes:3002
+      SCORE_PATH: http://scores:3000
+    networks:
+      - app_net
+  rf005:
+    build: rf005
+    ports:
+      - "3006:3000"
+    environment:
+      OFFERS_PATH: http://offers:3003
+      ROUTES_PATH: http://routes:3002
+      POSTS_PATH: http://posts:3001
+      USERS_PATH: http://users:3000
+      SCORE_PATH: http://scores:3000
+    networks:
+      - app_net
+networks:
+  post_net:
+    driver: bridge
+  user_net:
+    driver: bridge
+  route_net:
+    driver: bridge  
+  app_net:
+    driver: bridge
+  offer_net:
+    driver: bridge
+  score_net:
+    driver: bridge  

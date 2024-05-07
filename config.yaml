@@ -1,0 +1,29 @@
+team:
+  name: los de siempre
+  members:
+    - user: e.reyesm@uniandes.edu.co
+      percentage: 25
+    - user: ja.beltrang12@uniandes.edu.co
+      percentage: 25
+    - user: ma.martinezp123@uniandes.edu.co
+      percentage: 25
+    - user: of.garzon2662@uniandes.edu.co
+      percentage: 25
+board: https://github.com/orgs/MISW-4301-Desarrollo-Apps-en-la-Nube/projects/128/views/1
+url: 34.128.141.2
+user-management:
+  folder: users
+  authors:
+    - ma.martinezp123@uniandes.edu.co
+post-management:
+  folder: posts
+  authors:
+    - of.garzon2662@uniandes.edu.co
+offer-management:
+  folder: offers
+  authors:
+    - ja.beltrang12@uniandes.edu.co
+route-management:
+  folder: routes
+  authors:
+    - e.reyesm@uniandes.edu.co
