@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: users
-          image: us-central1-docker.pkg.dev/miso-ciclo5/uniandes-miso/users-app:1
+          image: us-central1-docker.pkg.dev/class-adv2024-vueibaezis13/i2-project/users:1.0
           ports:
             - containerPort: 3000
           env:
@@ -98,7 +98,7 @@ spec:
     spec:
       containers:
         - name: posts
-          image: us-central1-docker.pkg.dev/miso-ciclo5/uniandes-miso/posts-app:1
+          image: us-central1-docker.pkg.dev/class-adv2024-vueibaezis13/i2-project/posts:1.0
           ports:
             - containerPort: 3001
           env:
@@ -182,7 +182,7 @@ spec:
     spec:
       containers:
         - name: routes
-          image: us-central1-docker.pkg.dev/miso-ciclo5/uniandes-miso/routes-app:1
+          image: us-central1-docker.pkg.dev/class-adv2024-vueibaezis13/i2-project/routes:1.0
           ports:
             - containerPort: 3002
           env:
@@ -266,7 +266,7 @@ spec:
     spec:
       containers:
         - name: offers
-          image: us-central1-docker.pkg.dev/miso-ciclo5/uniandes-miso/offers-app:1
+          image: us-central1-docker.pkg.dev/class-adv2024-vueibaezis13/i2-project/offers:1.0
           ports:
             - containerPort: 3003
           env:

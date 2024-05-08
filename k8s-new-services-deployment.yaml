@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: rf003
-          image: us-central1-docker.pkg.dev/miso-ciclo5/uniandes-miso/rf003-app:1
+          image: us-central1-docker.pkg.dev/class-adv2024-vueibaezis13/i2-project/rf003:2.0
           ports:
             - containerPort: 3000
           env:
@@ -113,7 +113,7 @@ spec:
     spec:
       containers:
         - name: rf004
-          image: us-central1-docker.pkg.dev/miso-ciclo5/uniandes-miso/rf004-app:1
+          image: us-central1-docker.pkg.dev/class-adv2024-vueibaezis13/i2-project/rf004:2.0
           ports:
             - containerPort: 3000
           env:
@@ -217,7 +217,7 @@ spec:
     spec:
       containers:
         - name: rf005
-          image: us-central1-docker.pkg.dev/miso-ciclo5/uniandes-miso/rf005-app:1
+          image: us-central1-docker.pkg.dev/class-adv2024-vueibaezis13/i2-project/rf005:2.0
           ports:
             - containerPort: 3000
           env:
@@ -321,7 +321,7 @@ spec:
     spec:
       containers:
         - name: scores
-          image: us-central1-docker.pkg.dev/miso-ciclo5/uniandes-miso/scores-app:1
+          image: us-central1-docker.pkg.dev/class-adv2024-vueibaezis13/i2-project/scores:2.0
           ports:
             - containerPort: 3000
           env:
