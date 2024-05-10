@@ -17,4 +17,10 @@ https://raw.githubusercontent.com/MISW-4301-Desarrollo-Apps-en-la-Nube/proyecto-
 
 Simply import that collection in postman, and run the full collection or just a few tests to check that the endpoints work. 
 
-You may discover that this is a very simple app that could be used to create offers on a user post. 
+You may discover that this is a very simple app that could be used to create offers on a user post. This innovative service connects individuals who need to ship items with travelers who have spare luggage space. As a broker, the platform facilitates the exchange, allowing 'senders' to post available space in their luggage, and 'travellers' to match with these postings based on their shipping needs. This approach not only optimizes unused luggage space but also provides a cost-effective, community-driven alternative to traditional shipping methods. The platform aims to reshape the landscape of national and international parcel delivery, capitalizing on trust and community participation. 
+
+There is also a service that provides a score on each of the offers, allowing the user who creates the post to see which offer is more profitable. 
+
+The reader is welcome to check the code to gain more insight on it. 
+
+For our practical purposes of bringin up a k8s deployment that can handle the orchestration of all of these microservices, we will use a terraform script to provide the infrastructure in a timely and convenient way, in order to make deployments and tests faster. 
