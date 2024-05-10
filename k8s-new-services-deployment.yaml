@@ -8,7 +8,7 @@ metadata:
   labels:
     app: rf003
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: rf003
@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: rf003
-          image: us-central1-docker.pkg.dev/class-adv2024-vueibaezis13/i2-project/rf003:1.0
+          image: us-central1-docker.pkg.dev/i3schoolproject/i2project/rf003:1.0
           ports:
             - containerPort: 3000
           env:
@@ -102,7 +102,7 @@ metadata:
   labels:
     app: rf004
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: rf004
@@ -113,7 +113,7 @@ spec:
     spec:
       containers:
         - name: rf004
-          image: us-central1-docker.pkg.dev/class-adv2024-vueibaezis13/i2-project/rf004:1.0
+          image: us-central1-docker.pkg.dev/i3schoolproject/i2project/rf004:1.0
           ports:
             - containerPort: 3000
           env:
@@ -206,7 +206,7 @@ metadata:
   labels:
     app: rf005
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: rf005
@@ -217,7 +217,7 @@ spec:
     spec:
       containers:
         - name: rf005
-          image: us-central1-docker.pkg.dev/class-adv2024-vueibaezis13/i2-project/rf005:1.0
+          image: us-central1-docker.pkg.dev/i3schoolproject/i2project/rf005:1.0
           ports:
             - containerPort: 3000
           env:
@@ -310,7 +310,7 @@ metadata:
   labels:
     app: scores
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: scores
@@ -321,7 +321,7 @@ spec:
     spec:
       containers:
         - name: scores
-          image: us-central1-docker.pkg.dev/class-adv2024-vueibaezis13/i2-project/scores:1.0
+          image: us-central1-docker.pkg.dev/i3schoolproject/i2project/scores:1.0
           ports:
             - containerPort: 3000
           env:

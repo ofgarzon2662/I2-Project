@@ -1,5 +1,5 @@
 provider "google" {
-  credentials = file("class-adv2024-vueibaezis13-a85367528445.json")
+  credentials = file("i3schoolproject-a409eac16bfd.json")
   project     = var.project_id
   region      = var.region
 }
@@ -48,12 +48,12 @@ resource "google_compute_subnetwork" "subnet" {
 
   secondary_ip_range {
     range_name    = "pods"
-    ip_cidr_range = "192.168.128.0/21"
+    ip_cidr_range = "192.168.64.0/21"
   }
 
   secondary_ip_range {
     range_name    = "services"
-    ip_cidr_range = "192.168.136.0/21"
+    ip_cidr_range = "192.168.72.0/21"
   }
 
 }
@@ -63,7 +63,7 @@ resource "google_compute_global_address" "dbs_net_terraform" {
   purpose       = "VPC_PEERING"
   address_type  = "INTERNAL"
   prefix_length = 24
-  address       = "192.168.1.0"
+  address       = "192.168.0.0"
   network       = google_compute_network.vpc.self_link
 }
 
@@ -132,8 +132,12 @@ resource "google_secret_manager_secret" "db_password" {
   secret_id = "db-password-secret"
 
     replication {
-        auto {}
+    user_managed {
+      replicas {
+        location = "us-central1"  // Specify an allowed region here
+      }
     }
+  }
 }
 
 resource "google_secret_manager_secret_version" "password" {

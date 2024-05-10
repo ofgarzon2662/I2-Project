@@ -8,7 +8,7 @@ metadata:
   labels:
     app: users
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: users
@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: users
-          image: us-central1-docker.pkg.dev/class-adv2024-vueibaezis13/i2-project/users:1.0
+          image: us-central1-docker.pkg.dev/i3schoolproject/i2project/users:1.0
           ports:
             - containerPort: 3000
           env:
@@ -87,7 +87,7 @@ metadata:
   labels:
     app: posts
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: posts
@@ -98,7 +98,7 @@ spec:
     spec:
       containers:
         - name: posts
-          image: us-central1-docker.pkg.dev/class-adv2024-vueibaezis13/i2-project/posts:1.0
+          image: us-central1-docker.pkg.dev/i3schoolproject/i2project/posts:1.0
           ports:
             - containerPort: 3001
           env:
@@ -171,7 +171,7 @@ metadata:
   labels:
     app: routes
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: routes
@@ -182,7 +182,7 @@ spec:
     spec:
       containers:
         - name: routes
-          image: us-central1-docker.pkg.dev/class-adv2024-vueibaezis13/i2-project/routes:1.0
+          image: us-central1-docker.pkg.dev/i3schoolproject/i2project/routes:1.0
           ports:
             - containerPort: 3002
           env:
@@ -255,7 +255,7 @@ metadata:
   labels:
     app: offers
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: offers
@@ -266,7 +266,7 @@ spec:
     spec:
       containers:
         - name: offers
-          image: us-central1-docker.pkg.dev/class-adv2024-vueibaezis13/i2-project/offers:1.0
+          image: us-central1-docker.pkg.dev/i3schoolproject/i2project/offers:1.0
           ports:
             - containerPort: 3003
           env:

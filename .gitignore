@@ -194,3 +194,5 @@ terraform.rc
 # Ignore Terraform plugin directories
 .terraform/providers/*
 .terraform/plugins/*
+
+i3schoolproject-a409eac16bfd.json
