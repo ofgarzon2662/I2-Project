@@ -149,3 +149,18 @@ Once those deployments show that each pod is RUNNING, you should be good to depl
 ```bash
  kubectl apply -f k8s-ingress-deloyment.yaml
 ```
+
+Then, in GCP, type in the search bar: Ingress. Select Gateways, Services and Ingress, from the Kubernetes service. Go to the Ingress tab. There you'll see your ingress being created. Click on it and watch its progress.
+
+The ingress creation should take a few minutes. 
+
+Once it is up and running, and all the microservices are healthy, you will be able to retrieve the public IP address from the Ingress. 
+
+Copy that IP address, and add it in this Postman collection:
+
+https://raw.githubusercontent.com/MISW-4301-Desarrollo-Apps-en-la-Nube/proyecto-monitor/main/entrega2/entrega2_verify_new_logic.json
+
+in the INGRESS_PATH variable. 
+
+Then, run the collections, or just a few test and check that the endpoint is communicating with the microservices and retreiving the correct API response:
+
