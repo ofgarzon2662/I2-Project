@@ -82,5 +82,18 @@ To utilize the microservices, an Artifact Registry needs to be set up in your cl
      ```bash
      docker push REGION-docker.pkg.dev/PROJECT_ID/ARTIFACT_REGISTRY/offers:1.0
      ```
+## Running Terraform to Provision Infrastructure
 
+To deploy the infrastructure necessary for hosting our Kubernetes-based application, follow these steps to use the provided Terraform scripts:
+
+### Prerequisites
+Ensure you have Terraform installed on your machine. If not, download and install Terraform from [terraform.io](https://www.terraform.io/downloads.html).
+
+### Steps to Deploy Using Terraform
+
+1. **Initialization**:
+   Run the following command to initialize Terraform, which will download the necessary providers and initialize the backend.
+   ```bash
+   terraform init
+   ```
 
