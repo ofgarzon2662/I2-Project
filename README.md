@@ -47,27 +47,40 @@ To efficiently orchestrate all these microservices, we leverage Terraform script
 Here are the steps to utilize the provided Terraform scripts to set up the Kubernetes cluster:
 
 1. Access to a Public Cloud Provider: Ensure you have access to a public cloud provider. Although the scripts are designed primarily for Google Cloud Platform (GCP), they are adaptable to other public cloud environments.
-2.You need to create a service account with sufficient privileges to enable handling of the artifacts in the cloud provider you're using. In the case of GCP, a service account that allows managing artifacts in artifacts registry, creation of SQL instances, managing of Kubernets cluster is good enough to get you started. Always remember to guide provision this account following the least amount of permissions principle. This service account will be used to allow terraform perform all the necesary steps in the cloud. 
-4. If your are in GCP, go to the console. Select the IAM service, and go to Service accounts. Select the account you just created. Go to the keys tab, and add a new key.
-5. You can download the key into your pc, but you can also use the Workload Identity federetion services provided by google to safely store this sensitive file. For simplicity, we assume that you download this file into your local pc.You should get a JSON file with the credentials for this service account.
-6. Now, in the main.tf script provided in this repo, you need to add the file location into the credentials key (line 2). Paste the location of the file.
+2. **Create a Service Account:**
+  * In GCP or your chosen cloud provider, create a service account with sufficient privileges. For GCP, the account should have permissions to manage artifacts in the Artifact Registry, create SQL instances, and manage Kubernetes clusters.
+  * Follow the principle of least privilege when provisioning this account. This service account enables Terraform to perform all necessary actions in the cloud.
 
-#### Artifact Registry and pushing of images
+3. **Generate and Manage Service Account Key**
+  * In the GCP console, go to IAM & Admin > Service Accounts. Select your service account, navigate to the Keys tab, and add a new key.
+  * You may choose to download this key to your PC. Alternatively, consider using Google's Workload Identity Federation to securely manage this sensitive information. For simplicity, this guide assumes you download the key.
+  * Obtain a JSON file containing the service account credentials.
+4. **Update Terraform Configuration:**
+  * In the main.tf script provided in this repository, update the credentials key with the path to your downloaded JSON file.
 
-For the kubernets deployment to be able to use the microservices in this repo, you need to create an artifact Registry in your cloud provider. In the case of GCP, in the console enable the Artifact Registry API . 
+#### Setting Up Artifact Registry and Pushing Images
 
-Go to Artifact registry. Create repo in the console. Add a name, region, description, all. 
+To utilize the microservices, an Artifact Registry needs to be set up in your cloud provider. Here's how to do it in GCP:
 
-Authenticate through the gcloud cli: gcloud auth configure-docker us-central1-docker.pkg.dev. Ensure that you're using the right credentials in gcloud in order to be able to push the images. 
+1. **Enable the Artifact Registry API:**
+   * Navigate to the GCP console and enable the Artifact Registry API.
+2. **Create an Artifact Repository:**
+  * Go to the Artifact Registry section in the GCP console.
+  * Create a new repository by specifying a name, region, and other required details.
+3. **Authenticate Your Local Environment:**
+    * Use the following command to configure Docker to authenticate with your GCP Artifact Registry:
+    * gcloud auth configure-docker REGION-docker.pkg.dev
+    * Ensure that the correct credentials are active in your gcloud CLI to allow image pushing.
 
-Then, build each of the images using this:
-
-docker build -t REGION-docker.pkg.dev/PROJECT_ID/ARTIFACT_REGISTRY/offers:1.0 ./offers
-
-that will create the image for the offers microservice, based on the docker file that is located in ./offers
-
-If you're using a mac with an m1,2 chip, you need to add this flag:
-
-docker build --platform linux/amd64 -t ...
+4. **Build and Push Docker Images**
+   * For each microservice, build Docker images using the Dockerfiles provided in their respective directories. For instance, to build the offers microservice:
+   * docker build -t REGION-docker.pkg.dev/PROJECT_ID/ARTIFACT_REGISTRY/offers:1.0 ./offers
+   * If using a Mac with an M1/M2 chip, include the --platform linux/amd64 flag:
+   * docker build --platform linux/amd64 -t ...
+   * push each of the imaget to the registry:
+   * Once the image is built, push it to the configured Artifact Registry using the following command:
+     ```bash
+     docker push REGION-docker.pkg.dev/PROJECT_ID/ARTIFACT_REGISTRY/offers:1.0
+     ```
 
 
