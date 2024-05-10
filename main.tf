@@ -64,5 +64,5 @@ resource "google_compute_global_address" "dbs_net_terraform" {
   address_type  = "INTERNAL"
   prefix_length = 24
   address       = "192.168.1.0"
-  network       = google_compute_network.terraform_vpc.self_link
+  network       = google_compute_network.vpc.self_link
 }
