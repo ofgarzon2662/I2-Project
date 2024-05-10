@@ -96,4 +96,16 @@ Ensure you have Terraform installed on your machine. If not, download and instal
    ```bash
    terraform init
    ```
-
+2. **Creating an Execution Plan:**
+   Execute the following command to create an execution plan. This lets you preview the changes that Terraform plans to make to your infrastructure.
+  ```bash
+   terraform plan
+   ```
+3. **Applying the Configuration:**
+   Apply the configuration to start building the infrastructure as defined in your Terraform files.
+   ```bash
+   terraform apply
+   ```
+   Confirm the action by typing yes when prompted to proceed with the changes.
+**Note on API Activation**
+While Terraform scripts typically handle the enabling of required APIs in Google Cloud Platform (GCP), you might occasionally need to manually enable them through the GCP console, especially if you encounter permissions or quota-related errors.
