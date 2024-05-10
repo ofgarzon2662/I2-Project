@@ -162,3 +162,35 @@ cython_debug/
 *.iml
 secrets.yaml
 .DS_Store
+class-adv2024-vueibaezis13-a85367528445.json
+
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+terraform.tfstate*
+
+# Crash log files
+crash.log
+
+# Exclude all .tfvars files, which might contain sensitive data, such as
+# password, private keys, and other secrets. These should not be part of version control
+# as they can contain sensitive information.
+*.tfvars
+*.tfvars.json
+
+# Ignore override files as they are usually used to override resources locally.
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+# Ignore Terraform plugin directories
+.terraform/providers/*
+.terraform/plugins/*
