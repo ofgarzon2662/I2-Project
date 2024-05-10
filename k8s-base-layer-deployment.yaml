@@ -8,7 +8,7 @@ metadata:
   labels:
     app: users
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: users
@@ -87,7 +87,7 @@ metadata:
   labels:
     app: posts
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: posts
@@ -171,7 +171,7 @@ metadata:
   labels:
     app: routes
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: routes
@@ -255,7 +255,7 @@ metadata:
   labels:
     app: offers
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: offers

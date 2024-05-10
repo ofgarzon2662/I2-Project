@@ -66,3 +66,103 @@ resource "google_compute_global_address" "dbs_net_terraform" {
   address       = "192.168.1.0"
   network       = google_compute_network.vpc.self_link
 }
+
+
+resource "google_compute_firewall" "allow_db_ingress" {
+  name        = "allow-db-ingress-terraform"
+  network     = google_compute_network.vpc.self_link
+  priority    = 1000
+  direction   = "INGRESS"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["5432"]
+  }
+
+  source_ranges = ["192.168.1.0/24"]
+  target_tags   = ["basesdedatos-terraform"]
+}
+
+
+// Creation of PostgreSQL instance
+
+resource "google_sql_database_instance" "postgres" {
+  name             = "apps-db-terraform"
+  region           = "us-central1"
+  database_version = "POSTGRES_14"
+  
+
+  settings {
+    tier              = "db-f1-micro"
+    availability_type = "ZONAL"
+    disk_size         = 10
+    disk_type         = "PD_HDD"
+    disk_autoresize   = false
+
+    ip_configuration {
+      ipv4_enabled    = false
+      private_network = google_compute_network.vpc.self_link
+    }
+
+    backup_configuration {
+      enabled = false
+    }
+
+    location_preference {
+      zone = "us-central1-a"
+    }
+
+    user_labels = {
+      "basesdedatos-terraform" = ""
+    }
+  }
+  
+}
+
+resource "google_project_service" "service_networking" {
+  service = "servicenetworking.googleapis.com"
+}
+
+resource "random_password" "password" {
+  length  = 16
+  special = true
+}
+
+resource "google_secret_manager_secret" "db_password" {
+  secret_id = "db-password-secret"
+
+    replication {
+        auto {}
+    }
+}
+
+resource "google_secret_manager_secret_version" "password" {
+  secret      = google_secret_manager_secret.db_password.id
+  secret_data = random_password.password.result
+}
+
+resource "google_sql_user" "default" {
+  name     = "postgres"
+  instance = google_sql_database_instance.postgres.name
+  password = random_password.password.result
+}
+
+resource "google_service_networking_connection" "private_vpc_connection" {
+  network       = google_compute_network.vpc.self_link
+  service       = "servicenetworking.googleapis.com"
+  reserved_peering_ranges = [google_compute_global_address.dbs_net_terraform.name]
+}
+
+resource "google_project_service" "secret_manager" {
+  service = "secretmanager.googleapis.com"
+}
+
+resource "google_compute_global_address" "private_ip_range" {
+  name          = "sql-private-ip-range"
+  purpose       = "VPC_PEERING"
+  address_type  = "INTERNAL"
+  prefix_length = 24
+  network       = google_compute_network.vpc.self_link
+}
+
+

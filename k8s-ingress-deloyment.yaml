@@ -4,9 +4,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: gateway-ingress
+  name: gateway-ingress-terraform
   labels:
-    name: gateway-ingress
+    name: gateway-ingress-terraform
 spec:
   rules:
     - http:
