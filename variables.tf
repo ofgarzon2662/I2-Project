@@ -1,5 +1,5 @@
 variable "project_id" {
-  description = "class-adv2024-vueibaezis13"
+  description = "i3schoolproject"
 }
 
 variable "region" {
