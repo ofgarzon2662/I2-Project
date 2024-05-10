@@ -107,5 +107,45 @@ Ensure you have Terraform installed on your machine. If not, download and instal
    terraform apply
    ```
    Confirm the action by typing yes when prompted to proceed with the changes.
+   
 **Note on API Activation**
 While Terraform scripts typically handle the enabling of required APIs in Google Cloud Platform (GCP), you might occasionally need to manually enable them through the GCP console, especially if you encounter permissions or quota-related errors.
+
+Once the terraform script has implemented all the steps and all the infrastructure is properly set up in the cloud, you should be able to see the kubernetes cluster deployed, along with the SQL Postgres instance, and all the networking necesary has alredy been taken care of by the terraform from the console of your cloud provider. 
+
+The next steps involve some manual intervention to finally be able to test your deployment. 
+
+**Obtaining the SQL Postgres password**
+
+The main.tf script already sets up a password for your data base instance. You only need to retrieve it and use it to authenticate and read your database. 
+
+To do that, go to the Google Cloud Console. Navigate to Security > Secret Manager. Confirm that the secret exists and has the correct permissions set up to allow access from the application's service account. Select the secret and you'll be able to see the password. 
+
+There is a file in the repo called secrets-TEMPLATE.yaml. You can paste the password there in the appropriate field. 
+
+Make sure you never commit this file to your repo. You can simply change its name to secrets.yaml, and the .gitignore file should ignore it. This is crucial to avoid hacking of your data base credentials. 
+
+**Setting up the name space of the kubernetes cluster**
+
+In your GCP console, type in the search bar: Kubernetes. 
+
+Select clusters, and choose the cluster 'terraform-cluster'. Once there, look for the button 'connect'. That should retrieve a command line that you need to run in your terminal. Once you do that, you'll be deploying to your kubernetes cluster directly from your terminal. 
+
+Then, apply the secrets.yaml file you created previously:
+```bash
+ kubectl apply -f secrets.yaml
+```
+**Setting up the microservices in ingress**
+
+Run:
+
+```bash
+ kubectl apply -f k8s-base-layer-deployment.yaml
+kubectl apply -f k8s-new-services-deployment.yaml
+```
+Don't forget to include the correct images URIs in those files corresponding to the images created in the artifact registry. 
+
+Once those deployments show that each pod is RUNNING, you should be good to deploy the ingress:
+```bash
+ kubectl apply -f k8s-ingress-deloyment.yaml
+```
