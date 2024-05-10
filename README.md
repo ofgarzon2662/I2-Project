@@ -1,3 +1,8 @@
+# Automation of a Kubernetes cluster deployment with Terraform
+## Goals
+1. Build a pipeline that automates the deployment of a kubernetes cluster in a public cloud provider. This piplenie needs to provide: Infrastructure: Networking, Persistance layer, and secrets management.
+2. Demonstrate the benefits of investing time and resources in automating once, vs deploying manually everytime. 
+
 # Terraform Use Case for a Kubernetes-based Web App in the Cloud
 
 This project enables the deployment of a web application in a cloud provider using Terraform to provision the required infrastructure.
@@ -164,3 +169,14 @@ in the INGRESS_PATH variable.
 
 Then, run the collections, or just a few test and check that the endpoint is communicating with the microservices and retreiving the correct API response:
 
+![Screenshot 2024-05-10 at 12 16 22 AM](https://github.com/ofgarzon2662/I2-Project/assets/5341117/ac059a89-80ee-4b69-b4f0-64bf7b444c7e)
+
+# Outcome of this project
+
+By following the previous steps, you should be able to deploy a functional kubernetes cluster connected with a persistance layer, and orchestrating the communication of several microservices to achieve the bussines goals proposed previously. 
+
+# Long term goals
+
+There are plenty of stpes that could be automated further in this project, like the creation of the artifacts in the artifact registry, the depployments of the pods and the ingress, and so on.
+
+Nontheless, this pipeline offers a solid base to keep adding functionalities to the backend of this app, to achieve more complex behaviours that could benefit the bussines. Also, there is plenty to be discussed in the scalling part, as well as in the improvement of the speed in deployments. 
