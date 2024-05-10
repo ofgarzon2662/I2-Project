@@ -28,7 +28,8 @@ There is also a service that provides a score on each of the offers, allowing th
 The reader is welcome to check the code to gain more insight on it. 
 
 ## Going from docker-compose to Cloud
-### Cloud Native Architecture of the
-App:
+### Cloud Native Architecture of the App:
+
+![Screenshot 2024-05-09 at 10 49 44 PM](https://github.com/ofgarzon2662/I2-Project/assets/5341117/2266ff5b-58bd-4c96-9d78-3075dfe641f6)
 
 For our practical purposes of bringin up a k8s deployment that can handle the orchestration of all of these microservices, we will use a terraform script to provide the infrastructure in a timely and convenient way, in order to make deployments and tests faster. 
